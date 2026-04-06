@@ -1,7 +1,11 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 app.use(express.json());
+
+// Serve frontend files
+app.use(express.static('public'));
 
 // POST /simulate API
 app.post('/simulate', (req, res) => {
@@ -18,10 +22,9 @@ app.post('/simulate', (req, res) => {
         if (new_balance < 0) new_balance = 0;
     }
 
-    // Uti
+    // Utilization
     let new_utilization = new_balance / credit_limit;
 
-    
     let risk;
     let interest_impact;
 
@@ -46,7 +49,7 @@ app.post('/simulate', (req, res) => {
     });
 });
 
-// Server 
+// Server
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
